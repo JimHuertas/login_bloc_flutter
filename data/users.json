@@ -1,0 +1,20 @@
+{   
+    "total_users" : 2,
+    "users": 
+[
+    {
+        "id": 1,
+        "name": "Jim Leonardo",
+        "email": "jim@gmail",
+        "password": "jim123",
+        "number": 916241181
+    },
+    {
+        "id": 2,
+        "name": "Margot Robinson",
+        "email": "mar123@gmail.com",
+        "password": "mar123",
+        "number": 971880808
+    }
+]
+}
