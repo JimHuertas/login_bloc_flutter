@@ -41,7 +41,7 @@ class Pagina2Page extends StatelessWidget {
               child: const Text('Cambiar Numero', style: TextStyle( color: Colors.white ) ),
               onPressed: () {
                 const int age = 923104512;
-                userBloc.add(ChangeUserAge(age));
+                userBloc.add(ChangeUserNumber(age));
               }
             ),
 

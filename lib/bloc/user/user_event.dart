@@ -8,9 +8,9 @@ class ActiveUser extends UserEvent {
   ActiveUser(this.user);
 }
 
-class ChangeUserAge extends UserEvent{
+class ChangeUserNumber extends UserEvent{
   final int age;
-  ChangeUserAge(this.age );
+  ChangeUserNumber(this.age );
 }
 
 class AddNewProfession extends UserEvent{

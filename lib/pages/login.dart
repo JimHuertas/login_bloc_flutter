@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,9 +25,20 @@ class LoginPage extends StatelessWidget {
                 const Logo(
                   titulo: 'Messenger',
                 ),
+
+                BlocListener<UserBloc, UserState>(
+                  listener: (context, state){
+                    (state.existUser) 
+                      ? Navigator.pushReplacementNamed(context, 'pagina1')
+                      : null; 
+                  },
+                  child: BlocBuilder<UserBloc, UserState>(
+                    builder: (_, state){
+                      return _Form(state: state);
+                    }
+                  ),
+                ),
                 
-                _Form(),
-              
                 Labels(
                   text: '¿No tienes cuenta?',
                   textLinked: 'Crea una cuenta ahora!',
@@ -46,6 +55,9 @@ class LoginPage extends StatelessWidget {
 }
 
 class _Form extends StatefulWidget {
+  final UserState state;
+  const _Form({required this.state});
+  
   @override
   State<_Form> createState() => __FormState();
 }
@@ -77,19 +89,16 @@ class __FormState extends State<_Form> {
             obscureText: true,
           ),
 
-          BlueButton(
-            emailCtrl: emailCtrl,
-            passwordCtrl: passwordCtrl,
-            text: 'Ingresar',
-            onPressed: () {
-              userBloc.add(ValidLogin(emailCtrl.text, passwordCtrl.text));
-              
-              (userBloc.state.existUser) ?
-              // print("logeado") : print("no hay usuario");
-              Navigator.pushReplacementNamed(context, 'pagina1') : null;
-              
-            }
-          )
+          (!widget.state.existUser) 
+            ? BlueButton(
+              emailCtrl: emailCtrl,
+              passwordCtrl: passwordCtrl,
+              text: 'Ingresar',
+              onPressed: () => userBloc.add(ValidLogin(emailCtrl.text, passwordCtrl.text)))
+            : const Padding(
+              padding: EdgeInsets.all(3.0),
+              child: CircularProgressIndicator()
+            )
         ],
       ),
     );

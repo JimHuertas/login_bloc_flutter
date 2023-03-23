@@ -16,7 +16,7 @@ class UserBloc extends Bloc<UserEvent, UserState>{
       return emit(UserSetState(event.user)); 
     });
 
-    on<ChangeUserAge>((event, emit){
+    on<ChangeUserNumber>((event, emit){
       if(!state.existUser) return;
       emit(UserSetState(state.user!.copyWith(number: event.age)));
     });
@@ -39,16 +39,16 @@ class UserBloc extends Bloc<UserEvent, UserState>{
       for (idxUser = 0; idxUser < 2; idxUser++) {
         if(event.email == listUsers[idxUser].getEmail() && event.passowrd == listUsers[idxUser].getPassword()) {
             existUser = true;
-            emit(const UserLogged(true));
             break;
           }
       }
-      if(!existUser) return;
 
+      Future.delayed(const Duration(seconds: 3));
+
+      if(!existUser) return;
       else if (existUser) {
         emit(UserSetState(listUsers[idxUser]));
       }
     });
   }
-
 }

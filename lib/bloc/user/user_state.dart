@@ -9,17 +9,10 @@ abstract class UserState {
   const UserState({
     this.existUser = false,
     this.user
-  });
-
-  
+  }); 
 }
 class UserInitialState extends UserState {
   const UserInitialState(): super(existUser: false, user: null); 
-}
-
-class UserLogged extends UserState{
-  final bool logged;
-  const UserLogged(this.logged): super(existUser: true, user:null);
 }
 
 class UserSetState extends UserState{
