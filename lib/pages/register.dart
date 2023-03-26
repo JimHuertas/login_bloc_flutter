@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../bloc/user/user_bloc.dart';
 import '../widgets/blue_button.dart';
 import '../widgets/costum_imput.dart';
 import '../widgets/labels.dart';
@@ -23,7 +25,18 @@ class RegisterPage extends StatelessWidget {
                 const Logo(
                   titulo: 'Registro',
                 ),
-                _Form(),
+                BlocListener<UserBloc, UserState>(
+                  listener: (context, state){
+                    (state.status == UserStatus.Authenticated) 
+                      ? Navigator.pushReplacementNamed(context, 'pagina1')
+                      : null;
+                  },
+                  child: BlocBuilder<UserBloc, UserState>(
+                    builder: (_, state){
+                      return _Form(state: state);
+                    }
+                  ),
+                ),
                 Labels(
                   text: '¿Ya tienes cuenta?',
                   textLinked: 'Ingresar a cuenta',
@@ -40,6 +53,10 @@ class RegisterPage extends StatelessWidget {
 }
 
 class _Form extends StatefulWidget {
+  final state;
+
+  const _Form({super.key, required this.state});
+
   @override
   State<_Form> createState() => __FormState();
 }
@@ -53,6 +70,7 @@ class __FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+    final userBloc = BlocProvider.of<UserBloc>(context, listen: false);
     return Container(
       margin: const EdgeInsets.only(top: 40),
       padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -84,12 +102,20 @@ class __FormState extends State<_Form> {
             textController: numberCtrl, 
           ),
 
-          BlueButton(
-            emailCtrl: emailCtrl,
-            passwordCtrl: passwordCtrl,
-            text: 'Registrarse',
-            onPressed: () => Navigator.pushNamed(context, 'pagina1')
-          )
+          (widget.state.status != UserStatus.Loading) 
+            ? BlueButton(
+              emailCtrl: emailCtrl,
+              passwordCtrl: passwordCtrl,
+              text: 'Registrarse',
+              onPressed: () {
+                userBloc.add(SingUpRequest(emailCtrl.text, passwordCtrl.text, numberCtrl.text, nameCtrl.text));
+                print(widget.state.status.toString());
+              }
+              )
+            : const Padding(
+              padding: EdgeInsets.all(3.0),
+              child: CircularProgressIndicator()
+            )
         ],
       ),
     );

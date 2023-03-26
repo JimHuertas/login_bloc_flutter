@@ -1,25 +1,32 @@
 part of 'user_bloc.dart';
 
 @immutable
-abstract class UserEvent{}
+abstract class UserEvent extends Equatable{
+  const UserEvent();
 
-class ActiveUser extends UserEvent {
-  final User user;
-  ActiveUser(this.user);
+  @override
+  List<Object?> get props => [];
 }
 
 class ChangeUserNumber extends UserEvent{
   final int age;
-  ChangeUserNumber(this.age );
+  const ChangeUserNumber(this.age );
 }
 
-class AddNewProfession extends UserEvent{
-  final String newProfesion;
-  AddNewProfession(this.newProfesion);
-}
-
-class ValidLogin extends UserEvent{
+class SingInRequest extends UserEvent{
   final String email;
-  final String passowrd;
-  ValidLogin(this.email, this.passowrd);
+  final String password;
+
+  const SingInRequest(this.email, this.password);
 }
+
+class SingUpRequest extends UserEvent{
+  final String email;
+  final String name;
+  final String password;
+  final String number;
+
+  const SingUpRequest(this.email, this.password, this.number, this.name);
+}
+
+class LogOutRequest extends UserEvent{}

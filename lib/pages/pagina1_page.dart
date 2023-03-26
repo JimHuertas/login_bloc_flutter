@@ -1,5 +1,6 @@
 import 'package:bloc_flutter_login/bloc/user/user_bloc.dart';
 import 'package:bloc_flutter_login/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart' as FBAuth;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,14 +11,15 @@ class Pagina1Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pagina 1'),
+        title: const Text('Home Page'),
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (_, state) { 
-          return (state.existUser) 
-            ? InformacionUsuario(user: state.user!)
+          return (state.status == UserStatus.Authenticated) 
+            ? const InformacionUsuario()
             : const Center(
               child: Text('Usuario No Encontrado'),
             );
@@ -27,7 +29,7 @@ class Pagina1Page extends StatelessWidget {
 
      floatingActionButton: FloatingActionButton(
        child: const Icon( Icons.accessibility_new ),
-       onPressed: () => Navigator.pushNamed(context, 'pagina2')
+       onPressed: () => Navigator.pushNamed(context, 'image_gen')
      ),
    );
   }
@@ -35,15 +37,14 @@ class Pagina1Page extends StatelessWidget {
 
 class InformacionUsuario extends StatelessWidget {
 
-  final User user;
-
   const InformacionUsuario({
     Key? key,
-    required this.user
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final res = FBAuth.FirebaseAuth.instance;
+    final user = res.currentUser;
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -55,10 +56,11 @@ class InformacionUsuario extends StatelessWidget {
           const Text('General', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold ) ),
           const Divider(),
 
-          ListTile( title: Text('Nombre: ${user.nombre}') ),
-          ListTile( title: Text('Numero: ${user.number}') ),
+          ListTile( title: Text(
+            'Nombre: ${user!.displayName}'
+          ) ),
+          ListTile( title: Text('Numero: ${user.phoneNumber}') ),
           ListTile( title: Text('Email: ${user.email}') ),
-          ListTile( title: Text('Password: ${user.password}') ),
 
           // const Text('Profesiones', style: TextStyle( fontSize: 18, fontWeight: FontWeight.bold ) ),
           // const Divider(),

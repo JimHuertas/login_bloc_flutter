@@ -26,8 +26,8 @@ class Labels extends StatelessWidget {
         const SizedBox(height: 10),
         GestureDetector(
           child: Text(textLinked, 
-            style: TextStyle(
-              color: Colors.blue[600],
+            style: const TextStyle(
+              color: Color.fromRGBO(122, 189, 84, 1),//Colors.blue[600],
               fontSize: 18,
               fontWeight: FontWeight.bold
             ),

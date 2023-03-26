@@ -17,18 +17,19 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: SizedBox(
             height: MediaQuery.of(context).size.height*0.95,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 const Logo(
-                  titulo: 'Messenger',
+                  titulo: 'CutWood',
                 ),
 
                 BlocListener<UserBloc, UserState>(
                   listener: (context, state){
-                    (state.existUser) 
+                    (state.status == UserStatus.Authenticated) 
                       ? Navigator.pushReplacementNamed(context, 'pagina1')
                       : null; 
                   },
@@ -89,12 +90,16 @@ class __FormState extends State<_Form> {
             obscureText: true,
           ),
 
-          (!widget.state.existUser) 
+          (widget.state.status != UserStatus.Loading) 
             ? BlueButton(
               emailCtrl: emailCtrl,
               passwordCtrl: passwordCtrl,
               text: 'Ingresar',
-              onPressed: () => userBloc.add(ValidLogin(emailCtrl.text, passwordCtrl.text)))
+              onPressed: () {
+                userBloc.add(SingInRequest(emailCtrl.text, passwordCtrl.text));
+                print(widget.state.status.toString());
+              } 
+            )
             : const Padding(
               padding: EdgeInsets.all(3.0),
               child: CircularProgressIndicator()

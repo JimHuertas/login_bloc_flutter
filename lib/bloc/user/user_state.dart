@@ -1,21 +1,39 @@
 part of 'user_bloc.dart';
 
+enum UserStatus{UnAuthenticated, Loading, Authenticated}
+
 @immutable
-abstract class UserState {
+abstract class UserState extends Equatable{
   
-  final bool existUser; 
-  final User? user; 
+  final UserStatus status;
+  final User user; 
 
-  const UserState({
-    this.existUser = false,
-    this.user
+  const UserState._({
+    required this.status,
+    this.user = User.empty
   }); 
-}
-class UserInitialState extends UserState {
-  const UserInitialState(): super(existUser: false, user: null); 
+
+  const UserState.authenticated(User user) : this._(
+    status: UserStatus.Authenticated,
+    user: user
+  );
+  const UserState.unAuthenticated() : this._(status: UserStatus.UnAuthenticated);
+  const UserState.loading() : this._(status: UserStatus.Loading);
+
+  @override
+  List<Object?> get props => [status, user];
 }
 
-class UserSetState extends UserState{
-  final User newUser;
-  const UserSetState(this.newUser): super(existUser: true, user: newUser);
+class Loading extends UserState{
+  const Loading.loading() : super.loading();
+ 
+}
+
+class UnAuthenticated extends UserState{
+  const UnAuthenticated.unAuthenticated() : super.unAuthenticated();
+}
+
+class Authenticated extends UserState{
+  const Authenticated.authenticated(super.user) : super.authenticated();
+
 }

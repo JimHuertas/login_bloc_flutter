@@ -1,28 +1,42 @@
+import 'package:bloc_flutter_login/firebase_options.dart';
+import 'package:bloc_flutter_login/models/user_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bloc_flutter_login/bloc/user/user_bloc.dart';
 import 'package:bloc_flutter_login/routes/routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
- 
-void main() => runApp( const MyApp());
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
+  final authRepository = AuthRepository(); 
+  runApp(MyApp(authRepository: authRepository));
+}
  
 class MyApp extends StatelessWidget {
-  
-  const MyApp({Key? key}) : super(key: key);
+  final AuthRepository _authRepository;
+  const MyApp({
+    Key? key, 
+    required AuthRepository authRepository
+  }): _authRepository = authRepository, super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => UserBloc())
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Bloc Login',
-        initialRoute: 'login',
-        routes: appRoutes
-      ),
+    return RepositoryProvider.value(
+      value: _authRepository,
+      child: BlocProvider(
+        create: (_) => UserBloc(authRepository: _authRepository),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Login Bloc',
+          initialRoute: 'home',
+          routes: appRoutes
+        )
+      )
     );
   }
 }

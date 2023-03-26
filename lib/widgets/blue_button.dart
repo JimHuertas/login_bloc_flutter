@@ -20,7 +20,7 @@ class BlueButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 2,
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromRGBO(187, 244, 155, 1),
         shape: const StadiumBorder()
       ),
       onPressed: onPressed,
@@ -29,7 +29,7 @@ class BlueButton extends StatelessWidget {
         height: 55,
         child: Center(
           child: Text(text, style: const TextStyle(
-            color: Colors.white,
+            color: Colors.black54,
             fontSize: 17,
           ))
         )
