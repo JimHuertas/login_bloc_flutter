@@ -5,12 +5,16 @@ class BlueButton extends StatelessWidget {
   
   final TextEditingController emailCtrl;
   final TextEditingController passwordCtrl;
+  final TextEditingController? nameCtrl;
+  final TextEditingController? numberCtrl;
   final String text;
   final Function()? onPressed;
 
   const BlueButton({
     required this.emailCtrl,
     required this.passwordCtrl,
+    this.nameCtrl,
+    this.numberCtrl,
     required this.text,
     required this.onPressed
   });
@@ -20,7 +24,7 @@ class BlueButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 2,
-        backgroundColor: Color.fromRGBO(187, 244, 155, 1),
+        backgroundColor: const Color.fromRGBO(187, 244, 155, 1),
         shape: const StadiumBorder()
       ),
       onPressed: onPressed,
