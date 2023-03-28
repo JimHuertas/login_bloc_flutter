@@ -17,16 +17,20 @@ class _ImageGenerationPageState extends State<ImageGenerationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Image Generator")),
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(187, 244, 155, 1),
+        title: const Text("Image Generator", style: TextStyle(color: Colors.black87))
+      ),
       body: Center(
         child: Column(
           children: [
             const SizedBox(height: 50),
             Container(
+              color: const Color.fromRGBO(187, 244, 155, 1),
               width: 100,
               height: 50,
               child: ElevatedButton(
-                child: const Icon(Icons.save),
+                child: const Icon(Icons.save, color: Colors.black87),
                 onPressed: () {}//async {
                 //   RenderRepaintBoundary boundary = 
                 //       // Wrap the container in a RepaintBoundary widget to be able to capture its image
@@ -54,7 +58,7 @@ class _ImageGenerationPageState extends State<ImageGenerationPage> {
               child: Container(
                 width: 200, 
                 height: 200,
-                color: Colors.blue,
+                color: const Color.fromRGBO(187, 244, 155, 1),
               ),
             )
           ],

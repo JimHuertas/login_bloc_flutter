@@ -15,7 +15,7 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 170,
+        width: 200,
         child: Column(
           children: <Widget>[
             const Image(image: AssetImage('assets/wood_logo.png')),

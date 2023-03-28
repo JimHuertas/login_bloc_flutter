@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Login Bloc',
-          initialRoute: 'home',
+          initialRoute: 'verif_number',
           routes: appRoutes
         )
       )

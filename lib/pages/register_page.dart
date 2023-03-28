@@ -106,6 +106,8 @@ class __FormState extends State<_Form> {
             ? BlueButton(
               emailCtrl: emailCtrl,
               passwordCtrl: passwordCtrl,
+              nameCtrl: nameCtrl,
+              numberCtrl: numberCtrl,
               text: 'Registrarse',
               onPressed: () {
                 userBloc.add(SingUpRequest(emailCtrl.text, passwordCtrl.text, numberCtrl.text, nameCtrl.text));
