@@ -1,20 +1,20 @@
 import 'package:bloc_flutter_login/bloc/user/user_bloc.dart';
-import 'package:bloc_flutter_login/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FBAuth;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
-class Pagina1Page extends StatelessWidget {
+class GeneratorPage extends StatelessWidget {
 
-  const Pagina1Page({Key? key}) : super(key: key);
+  const GeneratorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        backgroundColor: const Color.fromRGBO(187, 244, 155, 1),
+        title: const Text('Home Page', style: TextStyle(color: Colors.black87)),
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (_, state) { 
@@ -28,7 +28,8 @@ class Pagina1Page extends StatelessWidget {
       ),
 
      floatingActionButton: FloatingActionButton(
-       child: const Icon( Icons.accessibility_new ),
+      backgroundColor: const Color.fromRGBO(187, 244, 155, 1),
+       child: const Icon( Icons.accessibility_new , color: Colors.black87),
        onPressed: () => Navigator.pushNamed(context, 'image_gen')
      ),
    );
