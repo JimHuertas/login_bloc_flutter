@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable{
@@ -8,7 +6,6 @@ class User extends Equatable{
   final String? photo;
   final String? email;
   final String? number;
-
 
   const User({ 
     required this.id,

@@ -1,6 +1,6 @@
 part of 'user_bloc.dart';
 
-enum UserStatus{UnAuthenticated, Loading, Authenticated}
+enum UserStatus{unAuthenticated, loading, authenticated}
 
 @immutable
 abstract class UserState extends Equatable{
@@ -14,11 +14,11 @@ abstract class UserState extends Equatable{
   }); 
 
   const UserState.authenticated(User user) : this._(
-    status: UserStatus.Authenticated,
+    status: UserStatus.authenticated,
     user: user
   );
-  const UserState.unAuthenticated() : this._(status: UserStatus.UnAuthenticated);
-  const UserState.loading() : this._(status: UserStatus.Loading);
+  const UserState.unAuthenticated() : this._(status: UserStatus.unAuthenticated);
+  const UserState.loading() : this._(status: UserStatus.loading);
 
   @override
   List<Object?> get props => [status, user];

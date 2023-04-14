@@ -16,5 +16,5 @@ final Map<String, WidgetBuilder> appRoutes = {
   'home'      : ( _ ) => const HomePage(),
   'login'     : ( _ ) => LoginPage(),
   'register'  : ( _ ) => RegisterPage(),
-  'verif_number'   : ( _ ) => const VerificationNumber(),
+  // 'verif_number'   : ( _ ) => const VerificationNumber(),
 };

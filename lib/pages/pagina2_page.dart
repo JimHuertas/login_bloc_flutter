@@ -19,46 +19,7 @@ class Pagina2Page extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // MaterialButton(
-            //   color: Colors.blue,
-            //   child: const Text('Establecer Usuario', style: TextStyle( color: Colors.white ) ),
-            //   onPressed: () {
-            //     final user = User(
-            //       nombre: 'Jim',
-            //       number: 22,
-            //       email: 'jhuertas@unsa.edu.pe',
-            //       password: 'admin123',
-            //       profesiones: ['Junior Dev']
-            //     );
-            //     // BlocProvider.of<UserBloc>(context, listen: false)
-            //     userBloc.add(ActiveUser(user));
-            //   }
-            // ),
-
-            MaterialButton(
-              color: Colors.blue,
-              child: const Text('Cambiar Numero', style: TextStyle( color: Colors.white ) ),
-              onPressed: () {
-                const int age = 923104512;
-                userBloc.add(ChangeUserNumber(age));
-              }
-            ),
-
-            // MaterialButton(
-            //   color: Colors.blue,
-            //   child: const Text('Añadir Profesion', style: TextStyle( color: Colors.white ) ),
-            //   onPressed: () {
-            //     const String newProfesion= 'Rapper';
-            //     userBloc.add(AddNewProfession(newProfesion));
-            //   }
-            // ),
-
-            // MaterialButton(
-            //   color: Colors.yellow,
-            //   child: const Text('Login Page', style: TextStyle( color: Colors.white ) ),
-            //   onPressed: () => Navigator.pushNamed(context, 'login')
-            // ),
-
+            
           ],
         )
      ),

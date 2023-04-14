@@ -7,6 +7,8 @@ import 'package:bloc_flutter_login/bloc/user/user_bloc.dart';
 import 'package:bloc_flutter_login/routes/routes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/cutwood_api_bloc/cut_wood_api_bloc.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,12 +30,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider.value(
       value: _authRepository,
-      child: BlocProvider(
-        create: (_) => UserBloc(authRepository: _authRepository),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => UserBloc(authRepository: _authRepository)),
+          BlocProvider(create: (_) => CodeNumberBloc()),
+        ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Login Bloc',
-          initialRoute: 'verif_number',
+          initialRoute: 'login',
           routes: appRoutes
         )
       )

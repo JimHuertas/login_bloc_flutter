@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 
 
-class BlueButton extends StatelessWidget {
+class CustomButtom extends StatelessWidget {
   
-  final TextEditingController emailCtrl;
-  final TextEditingController passwordCtrl;
+  final TextEditingController? emailCtrl;
+  final TextEditingController? passwordCtrl;
   final TextEditingController? nameCtrl;
   final TextEditingController? numberCtrl;
   final String text;
+  final Color? backgroundColor;
+  final Color? colorText;
   final Function()? onPressed;
 
-  const BlueButton({
-    required this.emailCtrl,
-    required this.passwordCtrl,
+  const CustomButtom({super.key, 
+    this.colorText = Colors.black54,
+    this.emailCtrl,
+    this.passwordCtrl,
     this.nameCtrl,
     this.numberCtrl,
+    this.backgroundColor = Colors.blue,
     required this.text,
     required this.onPressed
   });
@@ -24,7 +28,7 @@ class BlueButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 2,
-        backgroundColor: const Color.fromRGBO(187, 244, 155, 1),
+        backgroundColor: backgroundColor,
         shape: const StadiumBorder()
       ),
       onPressed: onPressed,
@@ -32,8 +36,8 @@ class BlueButton extends StatelessWidget {
         width: 300,
         height: 55,
         child: Center(
-          child: Text(text, style: const TextStyle(
-            color: Colors.black54,
+          child: Text(text, style: TextStyle(
+            color: colorText,
             fontSize: 17,
           ))
         )

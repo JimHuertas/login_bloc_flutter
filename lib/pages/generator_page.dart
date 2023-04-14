@@ -18,7 +18,7 @@ class GeneratorPage extends StatelessWidget {
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (_, state) { 
-          return (state.status == UserStatus.Authenticated) 
+          return (state.status == UserStatus.authenticated) 
             ? const InformacionUsuario()
             : const Center(
               child: Text('Usuario No Encontrado'),
@@ -69,7 +69,14 @@ class InformacionUsuario extends StatelessWidget {
           // ...user.profesiones.map(
           //   (prof) => ListTile(title: Text(prof))
           // ).toList(),
-
+          Center(
+            child: ElevatedButton(
+              child: const Icon(Icons.download),
+              onPressed: () {
+          
+              }, 
+            ),
+          )
         ],
       ),
     );

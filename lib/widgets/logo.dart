@@ -9,8 +9,6 @@ class Logo extends StatelessWidget {
     required this.titulo  
   }) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
     return Center(

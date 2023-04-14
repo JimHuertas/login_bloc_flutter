@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/user/user_bloc.dart';
-import '../widgets/blue_button.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/costum_imput.dart';
 import '../widgets/labels.dart';
 import '../widgets/logo.dart';
@@ -26,10 +26,9 @@ class LoginPage extends StatelessWidget {
                 const Logo(
                   titulo: 'CutWood',
                 ),
-
                 BlocListener<UserBloc, UserState>(
                   listener: (context, state){
-                    (state.status == UserStatus.Authenticated) 
+                    (state.status == UserStatus.authenticated) 
                       ? Navigator.pushReplacementNamed(context, 'pagina1')
                       : null; 
                   },
@@ -90,8 +89,8 @@ class __FormState extends State<_Form> {
             obscureText: true,
           ),
 
-          (widget.state.status != UserStatus.Loading) 
-            ? BlueButton(
+          (widget.state.status != UserStatus.loading) 
+            ? CustomButtom(
               emailCtrl: emailCtrl,
               passwordCtrl: passwordCtrl,
               text: 'Ingresar',

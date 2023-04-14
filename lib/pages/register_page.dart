@@ -1,8 +1,9 @@
+import 'package:bloc_flutter_login/pages/verification_number_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/user/user_bloc.dart';
-import '../widgets/blue_button.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/costum_imput.dart';
 import '../widgets/labels.dart';
 import '../widgets/logo.dart';
@@ -27,7 +28,17 @@ class RegisterPage extends StatelessWidget {
                 ),
                 BlocListener<UserBloc, UserState>(
                   listener: (context, state){
-                    (state.status == UserStatus.Authenticated) 
+                    Navigator.of(context).pushReplacement(                                                         //new
+                    MaterialPageRoute(                                                                       //new
+                      settings: const RouteSettings(name: ''),                                              //new
+                      builder: (context) => const VerificationNumber(
+                        email: 'myemail@flutter.com', 
+                        name: 'Jim Leonardo',
+                        password: 'jim123',  
+                      )
+                    )                                                                                            //new
+                  );
+                    (state.status == UserStatus.authenticated) 
                       ? Navigator.pushReplacementNamed(context, 'pagina1')
                       : null;
                   },
@@ -95,15 +106,15 @@ class __FormState extends State<_Form> {
             obscureText: true,
             textController: passwordCtrl, 
           ),
-          CustomImput(
-            hintText: "Número",
-            prefixIcon: Icons.contact_phone,
-            keyboardType: TextInputType.number,
-            textController: numberCtrl, 
-          ),
+          // CustomImput(
+          //   hintText: "Número",
+          //   prefixIcon: Icons.contact_phone,
+          //   keyboardType: TextInputType.number,
+          //   textController: numberCtrl, 
+          // ),
 
-          (widget.state.status != UserStatus.Loading) 
-            ? BlueButton(
+          (widget.state.status != UserStatus.loading) 
+            ? CustomButtom(
               emailCtrl: emailCtrl,
               passwordCtrl: passwordCtrl,
               nameCtrl: nameCtrl,
@@ -111,7 +122,7 @@ class __FormState extends State<_Form> {
               text: 'Registrarse',
               onPressed: () {
                 userBloc.add(SingUpRequest(emailCtrl.text, passwordCtrl.text, numberCtrl.text, nameCtrl.text));
-                print(widget.state.status.toString());
+                Navigator.pushReplacementNamed(context, 'verif_number');
               }
               )
             : const Padding(

@@ -1,6 +1,8 @@
 import 'package:bloc_flutter_login/models/user.dart' ;
 import 'package:firebase_auth/firebase_auth.dart' as FBAuth;
 
+///class [AuthRepository], working as a mediator beetween [UserBloc] model
+///and firebase, 
 class AuthRepository{
   final FBAuth.FirebaseAuth _fireAuth;
 
@@ -25,39 +27,15 @@ class AuthRepository{
         email: email, password: password);
       final user = res.user;
       await user!.updateDisplayName(name);
-      // await FBAuth.FirebaseAuth.instance.verifyPhoneNumber(
-      //   phoneNumber: '+51 $number',
-      //   verificationCompleted: (FBAuth.PhoneAuthCredential credential) async{
-      //     FBAuth.UserCredential authresult =
-      //       await _fireAuth.signInWithCredential(credential);
-      //   },
-      //   verificationFailed: (FBAuth.FirebaseAuthException e) {
-      //     String error = e.code == 'invalid-phone-number'
-      //       ? "Invalid number. Enter again."
-      //       : "Can Not Login Now. Please try again.";
-      //   },
-      //   codeSent: (String verificationId, int? resendToken) {
-
-      //   },
-      //   codeAutoRetrievalTimeout: (String verificationId) {
-
-      //   },
-      // );
-
-      
-
-      print('si se registro');
+      // await _verificationNumber(number: number);
     } on FBAuth.FirebaseAuthException catch (e){
       if(e.code == 'weak-password'){
-        print('This password is too weak');
         throw Exception('This password is too weak');
       } else if(e.code == 'email-already-in-use'){
-        print('This account already exist with same email');
         throw Exception('This account already exist with same email');
       }
     }
     catch (e) {
-      print('error de logeo');
       throw Exception(e.toString());
     }
   }
@@ -68,9 +46,44 @@ class AuthRepository{
         email: email,
         password: password
       );
-      print('paso la prueba del logeo');
     } catch (e) {
-      print('no se que habra pasado, pero no se logeo');
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<String> _verificationNumber({required String number}) async{
+    String? result;
+    final _authPhone = FBAuth.FirebaseAuth.instance;
+    try {
+      await _authPhone.verifyPhoneNumber(
+        phoneNumber: '+51 $number',
+        timeout: const Duration(seconds: 30),
+        verificationCompleted: (FBAuth.PhoneAuthCredential credential) async{
+          FBAuth.UserCredential authresult =
+            await _fireAuth.signInWithCredential(credential);
+        },
+        verificationFailed: (FBAuth.FirebaseAuthException e) {
+          result = e.code == 'invalid-phone-number'
+            ? "Invalid number. Enter again."
+            : "Can Not Login Now. Please try again.";
+        },
+        codeSent: (String verificationId, int? resendToken) async{
+          String smsCode = 'xxxx';
+          // Create a PhoneAuthCredential with the code
+          FBAuth.PhoneAuthCredential credential 
+          = FBAuth.PhoneAuthProvider.credential(
+            verificationId: verificationId, 
+            smsCode: smsCode);
+          // Sign the user in (or link) with the credential
+          await _authPhone.signInWithCredential(credential);
+          result = "verified";
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          result = "timeout";
+        },
+      );
+      return result!;
+    } catch (e) {
       throw Exception(e.toString());
     }
   }
@@ -79,7 +92,6 @@ class AuthRepository{
     try {
       await Future.wait([_fireAuth.signOut()]);
     } catch (e) {
-      print('deslogeo gaaa');
       throw Exception(e.toString());
     }
   }

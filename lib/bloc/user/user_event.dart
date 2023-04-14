@@ -8,9 +8,10 @@ abstract class UserEvent extends Equatable{
   List<Object?> get props => [];
 }
 
-class ChangeUserNumber extends UserEvent{
-  final int age;
-  const ChangeUserNumber(this.age );
+class _VerificationNumberPhone extends UserEvent{
+  final String smsCode;
+  final String numberPhone;
+  const _VerificationNumberPhone(this.numberPhone, this.smsCode);
 }
 
 class SingInRequest extends UserEvent{
@@ -18,6 +19,15 @@ class SingInRequest extends UserEvent{
   final String password;
 
   const SingInRequest(this.email, this.password);
+}
+
+class SinupFormDates extends UserEvent{
+  final String email;
+  final String name;
+  final String password;
+  final String number;
+
+  SinupFormDates(this.email, this.name, this.password, this.number);
 }
 
 class SingUpRequest extends UserEvent{
