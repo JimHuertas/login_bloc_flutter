@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:flutterfire_ui/auth.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter/material.dart';
 
@@ -21,13 +20,15 @@ Future<dynamic> _imageFromUrl() async{
 }
 
 class ImageGenerationPage extends StatefulWidget {
+  const ImageGenerationPage({super.key});
+
   @override
   State<ImageGenerationPage> createState() => _ImageGenerationPageState();
 }
 
 class _ImageGenerationPageState extends State<ImageGenerationPage> {
   ByteData? imageBytes;
-  GlobalKey _globalKey = GlobalKey();
+  // final GlobalKey _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

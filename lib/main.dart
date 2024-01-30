@@ -1,3 +1,4 @@
+import 'package:bloc_flutter_login/bloc/cut-wood-api-bloc/cut_wood_api_bloc.dart';
 import 'package:bloc_flutter_login/firebase_options.dart';
 import 'package:bloc_flutter_login/models/user_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (_) => UserBloc(authRepository: _authRepository)),
           BlocProvider(create: (_) => CodeNumberBloc()),
+          BlocProvider(create: (_) => CutWoodApiBloc())
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

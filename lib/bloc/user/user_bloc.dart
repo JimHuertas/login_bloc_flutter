@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc_flutter_login/models/user_auth.dart';
-import 'package:bloc_flutter_login/pages/verification_number_page.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
 import 'package:bloc_flutter_login/models/user.dart';
@@ -58,12 +56,13 @@ class UserBloc extends Bloc<UserEvent, UserState>{
     });
 
     on<_VerificationNumberPhone>((event, emit) async {
+      // ignore: unused_local_variable
       String result = '';
-      final _authPhone = FBAuth.FirebaseAuth.instance;
-      await _authPhone.verifyPhoneNumber(
+      final authPhone = FBAuth.FirebaseAuth.instance;
+      await authPhone.verifyPhoneNumber(
         phoneNumber: event.numberPhone,
         verificationCompleted: (FBAuth.PhoneAuthCredential phoneAuthCredential)async{
-          await _authPhone.signInWithCredential(phoneAuthCredential);
+          await authPhone.signInWithCredential(phoneAuthCredential);
         }, 
         codeSent: (String verificationId, int? forceResendingToken) async {
           String smsCode = event.smsCode;
@@ -74,7 +73,7 @@ class UserBloc extends Bloc<UserEvent, UserState>{
             smsCode: smsCode);
 
           // Sign the user in (or link) with the credential
-          await _authPhone.signInWithCredential(credential);
+          await authPhone.signInWithCredential(credential);
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           

@@ -10,6 +10,8 @@ import '../widgets/logo.dart';
 
 
 class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,7 @@ class RegisterPage extends StatelessWidget {
                     }
                   ),
                 ),
-                Labels(
+                const Labels(
                   text: '¿Ya tienes cuenta?',
                   textLinked: 'Ingresar a cuenta',
                   route: 'login',
@@ -66,7 +68,7 @@ class RegisterPage extends StatelessWidget {
 class _Form extends StatefulWidget {
   final state;
 
-  const _Form({super.key, required this.state});
+  const _Form({required this.state});
 
   @override
   State<_Form> createState() => __FormState();

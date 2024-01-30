@@ -27,7 +27,7 @@ class SinupFormDates extends UserEvent{
   final String password;
   final String number;
 
-  SinupFormDates(this.email, this.name, this.password, this.number);
+  const SinupFormDates(this.email, this.name, this.password, this.number);
 }
 
 class SingUpRequest extends UserEvent{

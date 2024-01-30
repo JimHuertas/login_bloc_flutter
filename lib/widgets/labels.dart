@@ -6,7 +6,7 @@ class Labels extends StatelessWidget {
   final String text;
   final String textLinked;
 
-  Labels({
+  const Labels({
     Key? key, 
     required this.route,
     required this.text,

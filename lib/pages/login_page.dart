@@ -9,6 +9,8 @@ import '../widgets/logo.dart';
 
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +32,16 @@ class LoginPage extends StatelessWidget {
                   listener: (context, state){
                     (state.status == UserStatus.authenticated) 
                       ? Navigator.pushReplacementNamed(context, 'pagina1')
-                      : null; 
+                      : null;
                   },
                   child: BlocBuilder<UserBloc, UserState>(
-                    builder: (_, state){
+                    builder: (_, state){ 
                       return _Form(state: state);
                     }
                   ),
                 ),
                 
-                Labels(
+                const Labels(
                   text: '¿No tienes cuenta?',
                   textLinked: 'Crea una cuenta ahora!',
                   route: 'register',
@@ -91,6 +93,7 @@ class __FormState extends State<_Form> {
 
           (widget.state.status != UserStatus.loading) 
             ? CustomButtom(
+              backgroundColor: const Color.fromRGBO(187, 244, 155, 1),
               emailCtrl: emailCtrl,
               passwordCtrl: passwordCtrl,
               text: 'Ingresar',

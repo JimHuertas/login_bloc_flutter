@@ -53,12 +53,13 @@ class AuthRepository{
 
   Future<String> _verificationNumber({required String number}) async{
     String? result;
-    final _authPhone = FBAuth.FirebaseAuth.instance;
+    final authPhone = FBAuth.FirebaseAuth.instance;
     try {
-      await _authPhone.verifyPhoneNumber(
+      await authPhone.verifyPhoneNumber(
         phoneNumber: '+51 $number',
         timeout: const Duration(seconds: 30),
         verificationCompleted: (FBAuth.PhoneAuthCredential credential) async{
+          // ignore: unused_local_variable
           FBAuth.UserCredential authresult =
             await _fireAuth.signInWithCredential(credential);
         },
@@ -75,7 +76,7 @@ class AuthRepository{
             verificationId: verificationId, 
             smsCode: smsCode);
           // Sign the user in (or link) with the credential
-          await _authPhone.signInWithCredential(credential);
+          await authPhone.signInWithCredential(credential);
           result = "verified";
         },
         codeAutoRetrievalTimeout: (String verificationId) {

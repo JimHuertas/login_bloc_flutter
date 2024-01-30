@@ -14,6 +14,6 @@ class HomePage extends StatelessWidget {
     final userBloc = BlocProvider.of<UserBloc>(context, listen: false);
     return (userBloc.state.status == UserStatus.authenticated)
     ? const GeneratorPage()
-    : LoginPage();
+    : const LoginPage();
   }
 }
